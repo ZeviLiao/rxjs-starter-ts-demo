@@ -1,23 +1,23 @@
-import { defer, Observable, of, Subject, ConnectableObservable } from "rxjs";
-import { multicast, refCount, delay } from "rxjs/operators";
+import { concat, defer, Observable, of, ConnectableObservable } from "rxjs";
+import { delay, publish } from "rxjs/operators";
 
 
 export const rxTest = () => {
-  // const source = defer(() =>
-  //   of(Math.floor(Math.random() * 100))
-  // );
-  const source = defer(() => of(Math.floor(Math.random() * 100))
-    .pipe(delay(0)));
-
-  const m = source.pipe(
-    multicast(() => new Subject<number>()),
-    refCount()
+  const source = concat(
+    defer(() => of(random())),
+    defer(() => of(random())).pipe(delay(1))
   );
-  m.subscribe(observer("a"));
-  m.subscribe(observer("b"));
+
+  const p = source.pipe(publish()) as ConnectableObservable<number>;
+  p.subscribe(observer("a"));
+  p.connect();
+  p.subscribe(observer("b"));
+  setTimeout(() => p.subscribe(observer("c")), 10);
 }
 
-
+function random() {
+  return Math.floor(Math.random() * 100);
+}
 
 function observer(name: string) {
   return {

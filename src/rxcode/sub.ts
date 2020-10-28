@@ -1,5 +1,5 @@
-import { concat, defer, Observable, of, ConnectableObservable } from "rxjs";
-import { delay, publish } from "rxjs/operators";
+import { concat, defer, Observable, of, ConnectableObservable, timer } from "rxjs";
+import { delay, publish, switchMapTo, publishBehavior } from "rxjs/operators";
 
 
 export const rxTest = () => {
@@ -8,7 +8,8 @@ export const rxTest = () => {
     defer(() => of(random())).pipe(delay(1))
   );
 
-  const p = source.pipe(publish()) as ConnectableObservable<number>;
+  const delayed = timer(1).pipe(switchMapTo(source));
+  const p = delayed.pipe(publishBehavior(-1)) as ConnectableObservable<number>;
   p.subscribe(observer("a"));
   p.connect();
   p.subscribe(observer("b"));

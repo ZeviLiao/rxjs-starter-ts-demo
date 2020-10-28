@@ -1,1 +1,3 @@
-console.log('Hello world!');
+import {rxTest} from './rxcode/sub'
+
+rxTest()

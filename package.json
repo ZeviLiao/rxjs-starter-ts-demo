@@ -4,6 +4,7 @@
   "description": "A basic typescript app starter for newbies in 2019.",
   "main": "index.js",
   "scripts": {
+    "go": "yarn start:dev",
     "build": "rimraf ./build && tsc",
     "start:dev": "nodemon",
     "start": "npm run build && node build/index.js",
@@ -47,6 +48,7 @@
   "dependencies": {
     "eslint-plugin-jest": "^24.1.0",
     "jest": "^26.5.3",
+    "rxjs": "^6.6.3",
     "ts-jest": "^26.4.1"
   }
 }

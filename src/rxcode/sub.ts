@@ -1,28 +1,24 @@
-import { concat, defer, Observable, of, ConnectableObservable, timer, Observer } from "rxjs";
+import { Subject, concat, defer, Observable, of, ConnectableObservable, timer, Observer } from "rxjs";
 import { delay, publish, switchMapTo, publishBehavior, publishLast, share } from "rxjs/operators";
 
 
 export const rxTest = () => {
 
-  let s = new Observable((observer: Observer<number>) => {
-    observer.next(1)
-    observer.next(2)
-  })
+  let s = new Subject<number>()
 
-  // let observer = {
-  //   next(val:any) {
-  //     console.log(val)
-  //   },
-  //   err() {
-  //   },
-  //   complete() {
-  //   }
-  // }
+  s.subscribe({
+    next: (v: any) => {
+      console.log(v)
+    }
+  })
 
   // s.subscribe(observer)
   s.subscribe((val: any) => {
     console.log(val)
   })
+
+  s.next(1)
+  s.next(2)
 
 }
 

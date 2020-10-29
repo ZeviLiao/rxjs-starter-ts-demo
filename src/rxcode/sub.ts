@@ -4,7 +4,7 @@ import { delay, publish, switchMapTo, publishBehavior, publishLast, share } from
 
 export const rxTest = () => {
 
-  let s = Observable.create((observer: Observer<number>) => {
+  let s = new Observable((observer: Observer<number>) => {
     observer.next(1)
     observer.next(2)
   })

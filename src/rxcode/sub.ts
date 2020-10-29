@@ -1,10 +1,12 @@
-import { Subject, concat, defer, Observable, of, ConnectableObservable, timer, Observer } from "rxjs";
-import { delay, publish, switchMapTo, publishBehavior, publishLast, share } from "rxjs/operators";
+import { Subject, concat, defer, Observable, of, ConnectableObservable, timer, Observer , from} from "rxjs";
+import { delay, publish, switchMapTo, publishBehavior, publishLast, share} from "rxjs/operators";
 
 
 export const rxTest = () => {
 
   let or = (v: any) => console.log(v)
+  let orA = (v: any) => console.log('a',v)
+  let orB = (v: any) => console.log('b',v)
   // let or = {
   //   next: (v: any) => console.log(v),
   //   err: (err: any) => console.log(err),
@@ -21,11 +23,19 @@ export const rxTest = () => {
   //
   let sj = new Subject<string>() // subject
 
-  sj.subscribe(or)
+  // sj.subscribe(or) // sub
+  sj.subscribe(orA) // topic A
+  sj.subscribe(orB) // topic B
+
+  // let ob2 = from(['s1', 's2']) // array pub and data source
+  let ob2 = of('s1', 's2') // iterator pub and data source
+
+  ob2.subscribe(sj) // binding pub sub
+  
   // sj.subscribe(or)
   // sj.subscribe(or)
-  sj.next('s1')
-  sj.next('s2')
+  // sj.next('s1')
+  // sj.next('s2')
 
 }
 

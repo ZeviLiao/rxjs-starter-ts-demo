@@ -1,26 +1,38 @@
-import { concat, defer, Observable, of, ConnectableObservable, timer } from "rxjs";
-import { delay, publish, switchMapTo, publishBehavior, publishLast , share} from "rxjs/operators";
+import { concat, defer, Observable, of, ConnectableObservable, timer, Observer } from "rxjs";
+import { delay, publish, switchMapTo, publishBehavior, publishLast, share } from "rxjs/operators";
 
 
 export const rxTest = () => {
-  const source = concat(
-    defer(() => of(random())),
-    defer(() => of(random())).pipe(delay(1))
-  );
 
-  const s = source.pipe(share());
-  s.subscribe(observer("a"));
-  s.subscribe(observer("b"));
-  setTimeout(() => s.subscribe(observer("c")), 10);
+  let s = Observable.create((observer: Observer<number>) => {
+    observer.next(1)
+    observer.next(2)
+  })
+
+  // let observer = {
+  //   next(val:any) {
+  //     console.log(val)
+  //   },
+  //   err() {
+  //   },
+  //   complete() {
+  //   }
+  // }
+
+  // s.subscribe(observer)
+  s.subscribe((val: any) => {
+    console.log(val)
+  })
+
 }
 
-function random() {
-  return Math.floor(Math.random() * 100);
-}
+// function random() {
+//   return Math.floor(Math.random() * 100);
+// }
 
-function observer(name: string) {
-  return {
-    next: (value: number) => console.log(`observer ${name}: ${value}`),
-    complete: () => console.log(`observer ${name}: complete`)
-  };
-}
+// function observer(name: string) {
+//   return {
+//     next: (value: number) => console.log(`observer ${name}: ${value}`),
+//     complete: () => console.log(`observer ${name}: complete`)
+//   };
+// }

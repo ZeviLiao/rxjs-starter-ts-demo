@@ -4,31 +4,28 @@ import { delay, publish, switchMapTo, publishBehavior, publishLast, share } from
 
 export const rxTest = () => {
 
-  let s = new Subject<number>()
+  let or = (v: any) => console.log(v)
+  // let or = {
+  //   next: (v: any) => console.log(v),
+  //   err: (err: any) => console.log(err),
+  //   complete: () => { }
+  // }
 
-  s.subscribe({
-    next: (v: any) => {
-      console.log(v)
-    }
-  })
+  let sbr = (or: any) => {  // data source
+    or.next('or1')
+    or.next('or2')
+  }
+  let ob = new Observable(sbr) // pub
+  ob.subscribe(or) // sub
 
-  // s.subscribe(observer)
-  s.subscribe((val: any) => {
-    console.log(val)
-  })
+  //
+  let sj = new Subject<string>() // subject
 
-  s.next(1)
-  s.next(2)
+  sj.subscribe(or)
+  // sj.subscribe(or)
+  // sj.subscribe(or)
+  sj.next('s1')
+  sj.next('s2')
 
 }
 
-// function random() {
-//   return Math.floor(Math.random() * 100);
-// }
-
-// function observer(name: string) {
-//   return {
-//     next: (value: number) => console.log(`observer ${name}: ${value}`),
-//     complete: () => console.log(`observer ${name}: complete`)
-//   };
-// }

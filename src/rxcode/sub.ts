@@ -4,23 +4,30 @@ import { delay, publish, switchMapTo, publishBehavior, publishLast, share} from 
 
 export const rxTest = () => {
 
-  let or = (v: any) => console.log(v)
+  let or = (v: any) => console.log(v)     // observer favor topic
   let orA = (v: any) => console.log('a',v)
-  let orB = (v: any) => console.log('b',v)
-  // let or = {
+  let orB = (v: any) => console.log('b', v)
+   // observer complete object
+  // let or = {  
   //   next: (v: any) => console.log(v),
   //   err: (err: any) => console.log(err),
   //   complete: () => { }
   // }
 
-  let sbr = (or: any) => {  // data source
-    or.next('or1')
-    or.next('or2')
-  }
-  let ob = new Observable(sbr) // pub
-  ob.subscribe(or) // sub
 
-  //
+  // observable -- data source as pub
+  let ob = from(['o1', 'o2'])
+  // let ob = of('o1', 'o2')
+
+  // let sbr = (or: any) => {  
+  //   or.next('or1')
+  //   or.next('or2')
+  // }
+  // let ob = new Observable(sbr) 
+
+  ob.subscribe(or) // observable be subscribed by observer  -- execute (binding)
+
+  // Subject
   let sj = new Subject<string>() // subject
 
   // sj.subscribe(or) // sub
@@ -30,7 +37,7 @@ export const rxTest = () => {
   // let ob2 = from(['s1', 's2']) // array pub and data source
   let ob2 = of('s1', 's2') // iterator pub and data source
 
-  ob2.subscribe(sj) // binding pub sub
+  ob2.subscribe(sj) // observable be subscribed by subject-(topics)  -- execute (binding)
   
   // sj.subscribe(or)
   // sj.subscribe(or)

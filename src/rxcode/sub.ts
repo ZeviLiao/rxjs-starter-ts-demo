@@ -19,7 +19,7 @@ export const rxTest = () => {
   let ob = from(['o1', 'o2'])
   // let ob = of('o1', 'o2')
 
-  // let sbr = (or: any) => {  
+  // let sbr = (or: any) => {  // one by one data source
   //   or.next('or1')
   //   or.next('or2')
   // }
@@ -41,7 +41,7 @@ export const rxTest = () => {
   
   // sj.subscribe(or)
   // sj.subscribe(or)
-  // sj.next('s1')
+  // sj.next('s1')  // one by one data source
   // sj.next('s2')
 
 }

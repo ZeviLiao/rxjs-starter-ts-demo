@@ -3,17 +3,18 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 
 export const rxTest = () => {
-  const ws = webSocket('wss://echo.websocket.org');
-
-  ws.subscribe(res => {
-    console.log('message', res);
+  // const ws = webSocket('wss://echo.websocket.org');
+  const socket$ = new WebSocketSubject('ws://localhost:3000');
+  socket$.subscribe(
+    (data) => console.log(data),
+    (err) => console.error(err),
+    () => console.warn('Completed!')
+  );
+  socket$.next({
+    event: 'events',
+    data: 'test',
   });
-
-  ws.next(`content`);
-  ws.next(`content`);
-  ws.next(`content`);
-
-  ws.complete();
-
+  // socket$.unsubscribe();
+  socket$.complete()
 }
 

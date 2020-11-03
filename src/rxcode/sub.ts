@@ -4,27 +4,6 @@ import { delay, publish, switchMapTo, publishBehavior, publishLast, share } from
 
 export const rxTest = () => {
 
-  let or = (v: any) => console.log(v)     // observer
-  // observer complete object
-  // let or = {  
-  //   next: (v: any) => console.log(v),
-  //   err: (err: any) => console.log(err),
-  //   complete: () => { }
-  // }
-
-
-  // observable -- data source as pub
-  let ob = from(['o1', 'o2'])
-  // let ob = of('o1', 'o2')
-
-  // let sbr = (or: any) => {  // one by one data source
-  //   or.next('or1')
-  //   or.next('or2')
-  // }
-  // let ob = new Observable(sbr) 
-
-  ob.subscribe(or) // observable be subscribed by observer  -- execute (binding)
-
   // Subject
   let sj = new Subject<string>() // subject
 

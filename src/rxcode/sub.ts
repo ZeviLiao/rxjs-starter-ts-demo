@@ -3,8 +3,13 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 
 export const rxTest = () => {
-  // const ws = webSocket('wss://echo.websocket.org');
-  const socket$ = new WebSocketSubject('ws://localhost:3000');
+  // const socket$ = webSocket('wss://echo.websocket.org');
+  // const socket$ = webSocket('ws://localhost:3000');
+  const socket$ = new WebSocketSubject({
+    url: 'ws://localhost:3000',
+    deserializer: ({ data }) => data
+  });
+
   socket$.subscribe(
     (data) => console.log(data),
     (err) => console.error(err),

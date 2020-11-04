@@ -17,9 +17,18 @@ export const rxTest = () => {
   );
   socket$.next({
     event: 'events',
-    data: 'test',
+    data: 'test'
+  });
+  socket$.next({
+    event: 'events',
+    data: 'test'
   });
   // socket$.unsubscribe();
-  socket$.complete()
+  function closeWebsocket() {
+    // this also caused the websocket connection to be closed
+    socket$.complete()
+  }
+
+  setTimeout(closeWebsocket, 5000)
 }
 
